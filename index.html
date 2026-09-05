@@ -3,10 +3,442 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>The Field Witness Society</title>
+
+  <meta
+    name="description"
+    content="The Field Witness Society is an international society for geography, exploration and documentary practice."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f2f0e8;
+      color: #151515;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      min-height: 100vh;
+      padding: 40px 6vw 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    nav .links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin-top: 10vh;
+    }
+
+    h1 {
+      font-size: clamp(52px, 8vw, 120px);
+      line-height: 0.92;
+      font-weight: normal;
+      letter-spacing: -0.04em;
+      max-width: 1000px;
+    }
+
+    .subtitle {
+      margin-top: 36px;
+      max-width: 720px;
+      font-size: clamp(18px, 2vw, 28px);
+      line-height: 1.35;
+    }
+
+    .founded {
+      margin-top: 70px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    section {
+      padding: 110px 6vw;
+      border-top: 1px solid #bdbbb3;
+    }
+
+    .section-label {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 40px;
+    }
+
+    .statement {
+      max-width: 1050px;
+      font-size: clamp(30px, 4.5vw, 64px);
+      line-height: 1.12;
+      font-weight: normal;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      max-width: 1200px;
+    }
+
+    .body-copy {
+      max-width: 760px;
+      font-size: 21px;
+    }
+
+    .body-copy p + p {
+      margin-top: 24px;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid #bdbbb3;
+      max-width: 1200px;
+    }
+
+    .principle {
+      padding: 35px 30px 35px 0;
+      border-bottom: 1px solid #bdbbb3;
+    }
+
+    .principle:nth-child(odd) {
+      border-right: 1px solid #bdbbb3;
+      padding-right: 40px;
+    }
+
+    .principle:nth-child(even) {
+      padding-left: 40px;
+    }
+
+    .principle h3 {
+      font-size: 28px;
+      font-weight: normal;
+      margin-bottom: 12px;
+    }
+
+    .principle p {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 470px;
+    }
+
+    .areas {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+    }
+
+    .area {
+      border-top: 1px solid #151515;
+      padding-top: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    footer {
+      padding: 70px 6vw 40px;
+      background: #151515;
+      color: #f2f0e8;
+    }
+
+    footer .name {
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: 1;
+      margin-bottom: 60px;
+    }
+
+    footer .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 800px) {
+      nav .links {
+        display: none;
+      }
+
+      .two-column {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .principles {
+        grid-template-columns: 1fr;
+      }
+
+      .principle,
+      .principle:nth-child(odd),
+      .principle:nth-child(even) {
+        border-right: none;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .areas {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      footer .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>The Field Witness Society</h1>
-  <p>An International Society for Geography, Exploration and Documentary Practice</p>
+
+<header id="home">
+
+  <nav>
+    <div>The Field Witness Society</div>
+
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#principles">Principles</a>
+      <a href="#practice">Practice</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>The Field Witness Society</h1>
+
+    <div class="subtitle">
+      An International Society for Geography, Exploration and Documentary Practice.
+    </div>
+
+    <div class="founded">
+      Founded in Turin, Italy · 2026
+    </div>
+  </div>
+
+</header>
+
+
+<section id="about">
+
+  <div class="section-label">Mission</div>
+
+  <div class="statement">
+    The world does not need to be discovered.
+    It needs to be observed more carefully,
+    understood more deeply and documented more responsibly.
+  </div>
+
+</section>
+
+
+<section>
+
+  <div class="two-column">
+
+    <div class="section-label">
+      The Society
+    </div>
+
+    <div class="body-copy">
+
+      <p>
+        The Field Witness Society exists to advance a contemporary practice
+        of geographical exploration grounded in presence, observation
+        and documentation.
+      </p>
+
+      <p>
+        We bring together photographers, writers, filmmakers, geographers,
+        researchers, conservationists and field practitioners who engage
+        directly with places, people and environments in order to deepen
+        understanding and create meaningful records of the world.
+      </p>
+
+      <p>
+        The Society supports work that is rigorous, independent and
+        responsible, placing knowledge and context above spectacle.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section>
+
+  <div class="two-column">
+
+    <div class="section-label">
+      What is a Field Witness?
+    </div>
+
+    <div class="body-copy">
+
+      <p>
+        A Field Witness is someone who goes into the field to observe,
+        document and deepen understanding.
+      </p>
+
+      <p>
+        Field Witnesses may work through photography, writing, film,
+        geography, science, research, conservation or other documentary
+        disciplines.
+      </p>
+
+      <p>
+        Their practices may differ, but they share a common principle:
+        meaningful understanding begins with presence.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="principles">
+
+  <div class="section-label">
+    Principles
+  </div>
+
+  <div class="principles">
+
+    <div class="principle">
+      <h3>Presence before interpretation</h3>
+      <p>
+        Understanding begins in the field. We value direct observation,
+        time, proximity and lived experience.
+      </p>
+    </div>
+
+    <div class="principle">
+      <h3>Truth before spectacle</h3>
+      <p>
+        Documentation should illuminate reality rather than exaggerate it.
+      </p>
+    </div>
+
+    <div class="principle">
+      <h3>Context matters</h3>
+      <p>
+        No photograph, story, landscape or encounter exists in isolation.
+      </p>
+    </div>
+
+    <div class="principle">
+      <h3>Explore without conquest</h3>
+      <p>
+        Exploration is not ownership. We reject narratives that erase
+        existing knowledge, presence or history.
+      </p>
+    </div>
+
+    <div class="principle">
+      <h3>Observe with respect</h3>
+      <p>
+        People, wildlife and landscapes must be approached with dignity,
+        responsibility and care.
+      </p>
+    </div>
+
+    <div class="principle">
+      <h3>Document with purpose</h3>
+      <p>
+        The strongest fieldwork leaves behind knowledge, testimony,
+        understanding or an enduring documentary record.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="practice">
+
+  <div class="section-label">
+    Areas of Practice
+  </div>
+
+  <div class="areas">
+
+    <div class="area">Geographical Exploration</div>
+    <div class="area">Documentary Photography</div>
+    <div class="area">Field Writing</div>
+    <div class="area">Documentary Film</div>
+    <div class="area">Human Geography & Culture</div>
+    <div class="area">Nature & Conservation</div>
+    <div class="area">Expedition & Field Practice</div>
+    <div class="area">Cartography & Visual Geography</div>
+
+  </div>
+
+</section>
+
+
+<footer id="contact">
+
+  <div class="name">
+    The Field Witness Society
+  </div>
+
+  <div class="footer-bottom">
+    <div>
+      Geography · Exploration · Documentary Practice
+    </div>
+
+    <div>
+      Turin · 2026
+    </div>
+
+    <div>
+      © 2026 The Field Witness Society
+    </div>
+  </div>
+
+</footer>
+
 </body>
 </html>
