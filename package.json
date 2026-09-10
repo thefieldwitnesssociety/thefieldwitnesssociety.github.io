@@ -1,0 +1,13 @@
+{
+  "name": "field-witness-society",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "python3 tools/build_site.py"
+  },
+  "devDependencies": {
+    "vite": "^7.1.0"
+  }
+}

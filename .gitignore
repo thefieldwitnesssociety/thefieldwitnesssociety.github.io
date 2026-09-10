@@ -1,0 +1,4 @@
+node_modules/
+.qa/
+.execution-profile.json
+__pycache__/
