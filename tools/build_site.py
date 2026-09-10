@@ -10,20 +10,22 @@ PDF = '/downloads/The_Field_Witness_Society_Field_Note_001_Mauritania.pdf'
 DESCRIPTOR = 'An International Society for Geography, Exploration and Documentary Practice.'
 
 
-def brand():
+def brand(masthead=False):
+    if masthead:
+        return '<a class="brand-lockup header-brand" href="/" aria-label="The Field Witness Society home"><img class="header-logo" src="/assets/brand/fws-horizontal-lockup.png" width="2048" height="423" alt="The Field Witness Society — Geography · Exploration · Documentary Practice"></a>'
     return '<a class="brand-lockup" href="/" aria-label="The Field Witness Society home"><img class="brand-symbol" src="/assets/brand/crater-section.svg" width="42" height="42" alt=""><span class="brand-name">The Field Witness Society</span></a>'
 
 
 def header(current=''):
     links = [('/#field-notes', 'Field Notes', 'notes'), ('/about/', 'About', 'about'), ('/about/#contact', 'Contact', 'contact')]
     nav = ''.join(f'<a href="{url}"'+(' aria-current="page"' if key == current else '')+f'>{label}</a>' for url,label,key in links)
-    return f'<a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="shell masthead">{brand()}<nav class="main-nav" aria-label="Main navigation">{nav}</nav></div></header>'
+    return f'<a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="shell masthead">{brand(masthead=True)}<nav class="main-nav" aria-label="Main navigation">{nav}</nav></div></header>'
 
 
 def footer():
     return f'''<footer class="site-footer"><div class="shell"><div class="footer-top">{brand()}
     <nav class="footer-links" aria-label="Footer navigation"><a href="/#field-notes">Field Notes</a><a href="/about/">About</a><a href="/about/#contact">Contact</a></nav></div>
-    <div class="footer-bottom"><p>Geography · Exploration · Documentary Practice</p><p>Turin, Italy · © 2026 The Field Witness Society</p></div></div></footer>'''
+    <div class="footer-bottom"><p>Geography · Exploration · Documentary Practice</p><p>© 2026 The Field Witness Society</p></div></div></footer>'''
 
 
 def link(url, label):
@@ -51,7 +53,7 @@ def home():
       <div class="feature-copy"><p class="eyebrow">Field Note 001 · Mauritania</p>
       <h1 id="feature-title">The iron ore railway</h1>
       <p class="feature-deck">A westbound passage from Choum to Nouadhibou.</p>
-      <p class="feature-meta"><span>Tommaso Bruno</span><span>9–10 October 2025</span></p>
+      <p class="feature-meta">9–10 October 2025</p>
       {link(ARTICLE, 'Read the Field Note')}</div>
       <figure class="feature-photo"><a href="{ARTICLE}" aria-label="Read The iron ore railway">
       <img src="/assets/field-note-001/figure-01-1600.webp" srcset="/assets/field-note-001/figure-01-960.webp 960w, /assets/field-note-001/figure-01-1600.webp 1600w, /assets/field-note-001/figure-01.jpg 2048w" sizes="(max-width:760px) calc(100vw - 48px), 58vw" width="2048" height="1365" alt="Iron-ore wagons extending across the desert in northern Mauritania." fetchpriority="high"></a>
@@ -68,11 +70,14 @@ def build():
     (ROOT/'index.html').write_text(document('The Field Witness Society',DESCRIPTOR,'/',home(),'notes'),encoding='utf-8')
     about = (ROOT/'content/about.html').read_text(encoding='utf-8')
     (ROOT/'about').mkdir(exist_ok=True)
-    (ROOT/'about/index.html').write_text(document('About · The Field Witness Society','The purpose, field practice and principles of The Field Witness Society. Founded in Turin in 2026.','/about/',about,'about'),encoding='utf-8')
+    (ROOT/'about/index.html').write_text(document('About · The Field Witness Society','The purpose, field practice and principles of The Field Witness Society. Contact us for editorial enquiries and contributions.','/about/',about,'about'),encoding='utf-8')
     article = (ROOT/'content/field-note-001.html').read_text(encoding='utf-8')
     (ROOT/'field-notes/the-iron-ore-railway/index.html').write_text(document('The iron ore railway · Field Note 001 · The Field Witness Society','A westbound passage from Choum to Nouadhibou, Mauritania. Photography and field notes by Tommaso Bruno, 9–10 October 2025.',ARTICLE,article,author='Tommaso Bruno'),encoding='utf-8')
     error = f'<main id="main" class="shell error-page"><p class="eyebrow">Page not found</p><h1>This page is unavailable.</h1><p>You can return to the Society or read our latest Field Note.</p>{link("/", "Return to the homepage")}</main>'
     (ROOT/'404.html').write_text(document('Page not found · The Field Witness Society','Return to the publications of The Field Witness Society.','/404.html',error,noindex=True),encoding='utf-8')
+    thanks = f'<main id="main" class="shell message-page"><p class="eyebrow">Contact</p><h1>Thank you for writing.</h1><p>Your message has been submitted to The Field Witness Society.</p>{link(ARTICLE, "Read our latest Field Note")}</main>'
+    (ROOT/'contact/thank-you').mkdir(parents=True,exist_ok=True)
+    (ROOT/'contact/thank-you/index.html').write_text(document('Thank you · The Field Witness Society','Thank you for contacting The Field Witness Society.','/contact/thank-you/',thanks,current='contact',noindex=True),encoding='utf-8')
     (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /content/\nSitemap: {ORIGIN}/sitemap.xml\n',encoding='utf-8')
     entries=''.join(f'<url><loc>{ORIGIN}{p}</loc></url>' for p in ['/', '/about/', ARTICLE])
     (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+entries+'</urlset>',encoding='utf-8')
