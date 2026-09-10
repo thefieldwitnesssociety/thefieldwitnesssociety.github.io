@@ -25,17 +25,18 @@ def footer():
     nav = ''.join(f'<a href="{url}">{label}</a>' for url,label,key in NAVIGATION)
     return f'''<footer class="site-footer"><div class="shell"><div class="footer-top">{brand()}
     <nav class="footer-links" aria-label="Footer navigation">{nav}</nav></div>
-    <div class="footer-bottom"><p>Geography · Exploration · Documentary Practice</p><p>© 2026 The Field Witness Society</p></div></div></footer>'''
+    <div class="footer-bottom"><p>Geography · Exploration · Documentary Practice</p><a class="footer-privacy" href="/privacy/">Privacy</a><p>© 2026 The Field Witness Society</p></div></div></footer>'''
 
 
 def link(url, label):
     return f'<a class="text-link" href="{url}">{label}<span class="arrow" aria-hidden="true">→</span></a>'
 
 
-def document(title, description, route, body, current='', noindex=False, author=None):
+def document(title, description, route, body, current='', noindex=False, author=None, scripts=()):
     meta = '<meta name="robots" content="noindex">' if noindex else ''
     if author:
         meta += f'<meta name="author" content="{escape(author)}">'
+    page_scripts = ''.join(f'<script src="{escape(src, quote=True)}" defer></script>' for src in scripts)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{escape(title)}</title><meta name="description" content="{escape(description)}">{meta}
@@ -43,7 +44,7 @@ def document(title, description, route, body, current='', noindex=False, author=
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/assets/brand/crater-section.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css"><link rel="preload" href="/assets/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/univers-67.woff2" as="font" type="font/woff2" crossorigin>
-<script src="/assets/legacy-navigation.js" defer></script>
+<script src="/assets/legacy-navigation.js" defer></script>{page_scripts}
 </head><body>{header(current)}{body}{footer()}</body></html>'''
 
 
@@ -85,14 +86,17 @@ def build():
     (ROOT/'about/index.html').write_text(document('About · The Field Witness Society','The purpose, field practice and principles of The Field Witness Society.','/about/',about,'about'),encoding='utf-8')
     contacts = (ROOT/'content/contacts.html').read_text(encoding='utf-8')
     (ROOT/'contacts').mkdir(exist_ok=True)
-    (ROOT/'contacts/index.html').write_text(document('Contacts · The Field Witness Society','Contact The Field Witness Society for editorial enquiries, fieldwork and contributions.','/contacts/',contacts,'contacts'),encoding='utf-8')
+    (ROOT/'contacts/index.html').write_text(document('Contacts · The Field Witness Society','Contact The Field Witness Society for editorial enquiries, fieldwork and contributions.','/contacts/',contacts,'contacts',scripts=('/assets/contact-email.js',)),encoding='utf-8')
+    privacy = (ROOT/'content/privacy.html').read_text(encoding='utf-8')
+    (ROOT/'privacy').mkdir(exist_ok=True)
+    (ROOT/'privacy/index.html').write_text(document('Privacy · The Field Witness Society','How The Field Witness Society handles personal data, email enquiries and website visits.','/privacy/',privacy,noindex=True),encoding='utf-8')
     article = (ROOT/'content/field-note-001.html').read_text(encoding='utf-8')
     (ROOT/'field-notes/the-iron-ore-railway/index.html').write_text(document('The iron ore railway · Field Note 001 · The Field Witness Society','A westbound passage from Choum to Nouadhibou, Mauritania. Photography and field notes by Tommaso Bruno, 9–10 October 2025.',ARTICLE,article,current='notes',author='Tommaso Bruno'),encoding='utf-8')
     error = f'<main id="main" class="shell error-page"><p class="eyebrow">Page not found</p><h1>This page is unavailable.</h1><p>You can return to the Society or read our latest Field Note.</p>{link("/", "Return to the homepage")}</main>'
     (ROOT/'404.html').write_text(document('Page not found · The Field Witness Society','Return to the publications of The Field Witness Society.','/404.html',error,noindex=True),encoding='utf-8')
-    thanks = f'<main id="main" class="shell message-page"><p class="eyebrow">Contact</p><h1>Thank you for writing.</h1><p>Your message has been submitted to The Field Witness Society.</p>{link(ARTICLE, "Read our latest Field Note")}</main>'
+    thanks = f'<main id="main" class="shell message-page"><p class="eyebrow">Contact</p><h1>Write to the Society.</h1><p>Messages are sent from your email app. This page does not confirm delivery.</p>{link("/contacts/", "Go to Contacts")}</main>'
     (ROOT/'contact/thank-you').mkdir(parents=True,exist_ok=True)
-    (ROOT/'contact/thank-you/index.html').write_text(document('Thank you · The Field Witness Society','Thank you for contacting The Field Witness Society.','/contact/thank-you/',thanks,current='contacts',noindex=True),encoding='utf-8')
+    (ROOT/'contact/thank-you/index.html').write_text(document('Email contact · The Field Witness Society','Contact The Field Witness Society by email.','/contact/thank-you/',thanks,current='contacts',noindex=True),encoding='utf-8')
     (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /content/\nSitemap: {ORIGIN}/sitemap.xml\n',encoding='utf-8')
     entries=''.join(f'<url><loc>{ORIGIN}{p}</loc></url>' for p in ['/', '/field-notes/', '/about/', '/contacts/', ARTICLE])
     (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+entries+'</urlset>',encoding='utf-8')

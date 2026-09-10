@@ -151,6 +151,18 @@ button,input,textarea{font:inherit}
 .contact-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(32px,6vw,100px);border-top:1px solid var(--line);padding-block:38px 64px}
 .contact-address a{display:inline-block;margin-top:15px;padding-block:8px;min-height:44px;font:700 1rem/1.6 var(--sans);overflow-wrap:anywhere}
 .contact-layout .contact-form{margin-top:0}
+.footer-privacy{display:inline-flex;align-items:center;min-height:44px;font-size:.875rem}
+.contact-privacy{margin-block:0 24px}
+.contact-status:not(:empty){margin-top:20px}
+.email-fallback{border-top:1px solid var(--line);margin-top:26px;padding-top:12px;font:400 1.0625rem/1.5 var(--serif)}
+.email-fallback summary{cursor:pointer;min-height:44px;padding-block:10px;font:700 .875rem/1.5 var(--sans)}
+.email-fallback p{padding-block:10px 0;overflow-wrap:anywhere}
+.privacy-shell{max-width:1000px;padding-bottom:64px}
+.privacy-date{font:700 .875rem/1.5 var(--sans);color:var(--muted);margin-top:24px}
+.privacy-copy{max-width:43rem;margin-left:auto;font:400 1.375rem/1.55 var(--serif);overflow-wrap:anywhere}
+.privacy-copy section{border-top:1px solid var(--line);padding-block:30px 36px;scroll-margin-top:24px}
+.privacy-copy h2{font:400 clamp(1.85rem,3vw,2.3rem)/1.2 var(--serif);margin-bottom:18px}
+.privacy-copy p+p{margin-top:1em}
 @media(max-width:1000px){.home-feature{grid-template-columns:minmax(235px,.9fr) minmax(0,1.3fr);gap:32px}.home-copy h1{font-size:clamp(3.2rem,5.7vw,4.5rem)}}
 @media(max-width:760px){.home-feature{grid-template-columns:1fr;padding-block:34px 42px;gap:32px}.home-copy h1{max-width:15ch;font-size:clamp(3rem,10vw,4.4rem)}.home-copy p{font-size:1.35rem;max-width:40ch;margin-top:22px}.home-copy .text-link{margin-top:18px}.home-photo figcaption{font-size:.8125rem}.notes-heading{padding-block:34px 30px}.contact-layout{grid-template-columns:1fr;gap:30px;padding-block:28px 42px}.contacts-heading .standfirst{max-width:34ch}.contact-address a{margin-top:8px}}
 
