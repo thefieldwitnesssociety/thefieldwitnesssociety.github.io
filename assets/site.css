@@ -1,6 +1,6 @@
 @font-face{font-family:"EB Garamond";src:url("fonts/eb-garamond.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Submariner R24";src:url("fonts/submariner-r24.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"Univers 67 Condensed";src:url("fonts/univers-67.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+/* Brand faces may be used when installed on the reader's device. Only the
+   OFL-licensed EB Garamond is distributed by this website. */
 :root{--canvas:#f2ebdd;--ink:#171716;--blue:#19365f;--sand:#b9a783;--muted:#5e5b54;--line:#cfc5b3;--serif:"EB Garamond",Georgia,serif;--sans:"Submariner R24",Arial,sans-serif;--brand:"Univers 67 Condensed","Arial Narrow",sans-serif;--gutter:clamp(24px,4.7vw,80px);--wide:1440px}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-padding-top:24px}
@@ -51,6 +51,7 @@ button,input,textarea{font:inherit}
 .footer-top{display:flex;justify-content:space-between;align-items:start;gap:32px}
 .site-footer .brand-symbol{width:30px;height:30px}
 .site-footer .brand-name{font-size:1.125rem}
+.site-footer .footer-brand{width:320px;max-width:100%;flex-shrink:1}
 .footer-links{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;font:700 .875rem/1.5 var(--sans)}
 .footer-links a{min-height:44px;display:inline-flex;align-items:center;text-decoration:none}
 .footer-links a:hover{text-decoration:underline}

@@ -13,7 +13,7 @@ NAVIGATION = [('/', 'Home', 'home'), ('/field-notes/', 'Field Notes', 'notes'), 
 def brand(masthead=False):
     if masthead:
         return '<a class="brand-lockup header-brand" href="/" aria-label="The Field Witness Society home"><img class="header-logo" src="/assets/brand/fws-horizontal-lockup.png" width="2048" height="423" alt="The Field Witness Society — Geography · Exploration · Documentary Practice"></a>'
-    return '<a class="brand-lockup" href="/" aria-label="The Field Witness Society home"><img class="brand-symbol" src="/assets/brand/crater-section.svg" width="42" height="42" alt=""><span class="brand-name">The Field Witness Society</span></a>'
+    return '<a class="brand-lockup footer-brand" href="/" aria-label="The Field Witness Society home"><img src="/assets/brand/fws-horizontal-lockup.png" width="2048" height="423" alt="The Field Witness Society — Geography · Exploration · Documentary Practice"></a>'
 
 
 def header(current=''):
@@ -39,11 +39,12 @@ def document(title, description, route, body, current='', noindex=False, author=
     page_scripts = ''.join(f'<script src="{escape(src, quote=True)}" defer></script>' for src in scripts)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action mailto:; upgrade-insecure-requests">
 <title>{escape(title)}</title><meta name="description" content="{escape(description)}">{meta}
 <link rel="canonical" href="{ORIGIN}{route}"><meta name="theme-color" content="#f2ebdd">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/assets/brand/crater-section.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css"><link rel="preload" href="/assets/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/univers-67.woff2" as="font" type="font/woff2" crossorigin>
 <script src="/assets/legacy-navigation.js" defer></script>{page_scripts}
 </head><body>{header(current)}{body}{footer()}</body></html>'''
 
