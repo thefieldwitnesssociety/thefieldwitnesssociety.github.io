@@ -37,6 +37,7 @@ def document(title, description, route, body, current='', noindex=False, author=
     if author:
         meta += f'<meta name="author" content="{escape(author)}">'
     page_scripts = ''.join(f'<script src="{escape(src, quote=True)}" defer></script>' for src in scripts)
+    page_class = 'article' if route == ARTICLE else current or ('privacy' if route == '/privacy/' else 'utility')
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
@@ -45,19 +46,23 @@ def document(title, description, route, body, current='', noindex=False, author=
 <link rel="canonical" href="{ORIGIN}{route}"><meta name="theme-color" content="#f2ebdd">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/assets/brand/crater-section.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css"><link rel="preload" href="/assets/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/univers-67.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/submariner-r24.woff2" as="font" type="font/woff2" crossorigin>
 <script src="/assets/legacy-navigation.js" defer></script>{page_scripts}
-</head><body>{header(current)}{body}{footer()}</body></html>'''
+</head><body class="page-{page_class}">{header(current)}{body}{footer()}</body></html>'''
 
 
 def home():
     return f'''<main id="main" class="shell home-feature">
       <div class="home-copy">
         <h1>Work that begins in the field.</h1>
+        <div class="home-intro">
         <p>The Field Witness Society is an independent international society for geography, exploration and documentary practice. We publish photographs and writing that bring places into closer view.</p>
         {link('/field-notes/', 'Explore the Field Notes')}
+        </div>
       </div>
       <figure class="home-photo">
-        <img src="/assets/field-note-001/figure-06-1600.webp" srcset="/assets/field-note-001/figure-06-960.webp 960w, /assets/field-note-001/figure-06-1600.webp 1600w, /assets/field-note-001/figure-06.jpg 2048w" sizes="(max-width:760px) calc(100vw - 48px), (min-width:1600px) 880px, 58vw" width="2048" height="1365" alt="The Ben Amera monolith rising above sand and sparse vegetation in Mauritania." fetchpriority="high">
+        <img src="/assets/field-note-001/figure-06-1600.webp" srcset="/assets/field-note-001/figure-06-960.webp 960w, /assets/field-note-001/figure-06-1600.webp 1600w, /assets/field-note-001/figure-06.jpg 2048w" sizes="(max-width:640px) calc(100vw - 40px), (min-width:1700px) 1540px, 92vw" width="2048" height="1365" alt="The Ben Amera monolith rising above sand and sparse vegetation in Mauritania." fetchpriority="high">
         <figcaption><span>Ben Amera, Mauritania</span><a href="{ARTICLE}">From Field Note 001</a></figcaption>
       </figure>
     </main>'''
