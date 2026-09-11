@@ -73,6 +73,28 @@
         "salt-flat-640.webp",
         "salt-flat-960.webp"
       ]
+    },
+    {
+      "source": "IMG_8724(2).jpg",
+      "sha256": "459b8af926bcca916bc1dff06b21d3393f643b20c3de3aa7160460dd71c0987a",
+      "dimensions": [
+        2048,
+        1638
+      ],
+      "files": [
+        "mountaineers-desktop.jpg"
+      ]
+    },
+    {
+      "source": "IMG_1117(1).jpg",
+      "sha256": "94bcab4ec514afc5e24eca11afad2acda47a90e8b17979795508f28baf381d10",
+      "dimensions": [
+        1365,
+        2048
+      ],
+      "files": [
+        "lightning-van-mobile.jpg"
+      ]
     }
   ]
 }

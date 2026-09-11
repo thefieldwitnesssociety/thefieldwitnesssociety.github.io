@@ -62,24 +62,16 @@ def home():
     return f'''<main id="main" class="home-feature">
       <section class="home-hero" aria-labelledby="home-title">
         <picture class="hero-image">
-          <source media="(max-width: 640px)" srcset="/assets/photography/snow-detail-640.webp 640w, /assets/photography/snow-detail-960.webp 960w" sizes="100vw" width="1365" height="2048">
-          <img src="/assets/photography/snow-ridge-1600.webp" srcset="/assets/photography/snow-ridge-960.webp 960w, /assets/photography/snow-ridge-1600.webp 1600w, /assets/photography/snow-ridge-2048.webp 2048w" sizes="100vw" width="2048" height="1365" alt="Wind-shaped snow and exposed rock in a high mountain landscape." fetchpriority="high">
+          <source media="(max-width: 640px)" srcset="/assets/photography/lightning-van-mobile.jpg" width="1365" height="2048">
+          <img src="/assets/photography/mountaineers-desktop.jpg" width="2048" height="1638" alt="Fieldwork in remote landscapes." fetchpriority="high">
         </picture>
         <div class="shell hero-type"><h1 id="home-title">Work that<br> begins in<br> the <em>field.</em></h1></div>
       </section>
       <div class="shell home-copy">
         <div class="home-intro">
         <p>The Field Witness Society is an independent international society for geography, exploration and documentary practice. We publish photographs and writing that bring places into closer view.</p>
-        {link('/field-notes/', 'Explore the Field Notes')}
+        {link('/field-notes/', 'Explore the field notes')}
         </div>
-      <figure class="home-photo">
-        <img src="/assets/field-note-001/figure-06-1600.webp" srcset="/assets/field-note-001/figure-06-960.webp 960w, /assets/field-note-001/figure-06-1600.webp 1600w, /assets/field-note-001/figure-06.jpg 2048w" sizes="(max-width:640px) calc(100vw - 40px), (min-width:1700px) 1540px, 92vw" width="2048" height="1365" alt="The Ben Amera monolith rising above sand and sparse vegetation in Mauritania." fetchpriority="high">
-        <figcaption><span>Ben Amera, Mauritania</span><a href="{ARTICLE}">From Field Note 001</a></figcaption>
-      </figure>
-      </div>
-      <div class="shell landscape-sequence" aria-label="Photographs from the field">
-        <figure class="sequence-wide"><img src="/assets/photography/geothermal-landscape-1600.webp" srcset="/assets/photography/geothermal-landscape-960.webp 960w, /assets/photography/geothermal-landscape-1600.webp 1600w" sizes="(max-width: 640px) calc(100vw - 40px), 58vw" width="2048" height="1365" alt="Steam rising from a rocky geothermal landscape." loading="lazy" decoding="async"></figure>
-        <figure class="sequence-tall"><img src="/assets/photography/volcanic-lava-960.webp" srcset="/assets/photography/volcanic-lava-640.webp 640w, /assets/photography/volcanic-lava-960.webp 960w" sizes="(max-width: 640px) 65vw, 28vw" width="1365" height="2048" alt="Bright orange lava thrown above dark volcanic rock." loading="lazy" decoding="async"></figure>
       </div>
     </main>'''
 
@@ -94,13 +86,10 @@ def field_notes():
       <p class="feature-meta">9–10 October 2025</p>
       {link(ARTICLE, 'Read the Field Note')}</div>
       <figure class="feature-photo"><a href="{ARTICLE}" aria-label="Read The iron ore railway">
-      <img src="/assets/field-note-001/figure-01-1600.webp" srcset="/assets/field-note-001/figure-01-960.webp 960w, /assets/field-note-001/figure-01-1600.webp 1600w, /assets/field-note-001/figure-01.jpg 2048w" sizes="(max-width:760px) calc(100vw - 48px), 58vw" width="2048" height="1365" alt="Iron-ore wagons extending across the desert in northern Mauritania." fetchpriority="high"></a>
+      <img src="/assets/field-note-001/figure-01-1600.webp" srcset="/assets/field-note-001/figure-01-960.webp 960w, /assets/field-note-001/figure-01-1600.webp 1600w, /assets/field-note-001/figure-01.jpg 2048w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:860px) 91vw, (min-width:1875px) 924px, 50vw" width="2048" height="1365" alt="Iron-ore wagons extending across the desert in northern Mauritania." fetchpriority="high"></a>
       <figcaption><span>Northern Mauritania</span><span>Photography and field notes</span></figcaption></figure>
     </article>
-    <div class="archive-images" aria-label="Photographs from The iron ore railway">
-      <figure><a href="{ARTICLE}" aria-label="Read the Field Note with the SNIM locomotive photograph"><img src="/assets/field-note-001/figure-04-1600.webp" srcset="/assets/field-note-001/figure-04-960.webp 960w, /assets/field-note-001/figure-04-1600.webp 1600w" sizes="(max-width: 640px) calc(100vw - 40px), 57vw" width="2048" height="1365" alt="The blue and cream SNIM locomotive BB 205 beside ore wagons." loading="lazy" decoding="async"></a></figure>
-      <figure><a href="{ARTICLE}" aria-label="Read the Field Note from an open ore wagon"><img src="/assets/field-note-001/figure-10-960.webp" srcset="/assets/field-note-001/figure-10-960.webp 960w, /assets/field-note-001/figure-10-1365.webp 1365w" sizes="(max-width: 640px) 64vw, 28vw" width="1365" height="2048" alt="A view along loaded iron-ore wagons during the railway journey." loading="lazy" decoding="async"></a></figure>
-    </div></main>'''
+    </main>'''
 
 
 def build():
