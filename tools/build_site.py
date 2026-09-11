@@ -1,6 +1,7 @@
 """Render the existing static GitHub Pages site. No runtime dependencies."""
 from pathlib import Path
 from html import escape
+from hashlib import sha256
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'https://fieldwitnesssociety.com'
@@ -8,6 +9,11 @@ ARTICLE = '/field-notes/the-iron-ore-railway/'
 PDF = '/downloads/The_Field_Witness_Society_Field_Note_001_Mauritania.pdf'
 DESCRIPTOR = 'An International Society for Geography, Exploration and Documentary Practice.'
 NAVIGATION = [('/', 'Home', 'home'), ('/field-notes/', 'Field Notes', 'notes'), ('/about/', 'About', 'about'), ('/contacts/', 'Contacts', 'contacts')]
+
+
+def asset_url(path):
+    fingerprint = sha256((ROOT / path.lstrip('/')).read_bytes()).hexdigest()[:12]
+    return f'{path}?v={fingerprint}'
 
 
 def brand(masthead=False):
@@ -36,7 +42,7 @@ def document(title, description, route, body, current='', noindex=False, author=
     meta = '<meta name="robots" content="noindex">' if noindex else ''
     if author:
         meta += f'<meta name="author" content="{escape(author)}">'
-    page_scripts = ''.join(f'<script src="{escape(src, quote=True)}" defer></script>' for src in scripts)
+    page_scripts = ''.join(f'<script src="{escape(asset_url(src), quote=True)}" defer></script>' for src in scripts)
     page_class = 'article' if route == ARTICLE else current or ('privacy' if route == '/privacy/' else 'utility')
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,10 +51,10 @@ def document(title, description, route, body, current='', noindex=False, author=
 <title>{escape(title)}</title><meta name="description" content="{escape(description)}">{meta}
 <link rel="canonical" href="{ORIGIN}{route}"><meta name="theme-color" content="#f2ebdd">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/assets/brand/crater-section.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/site.css"><link rel="preload" href="/assets/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{asset_url('/assets/site.css')}"><link rel="preload" href="/assets/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/univers-67.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/submariner-r24.woff2" as="font" type="font/woff2" crossorigin>
-<script src="/assets/legacy-navigation.js" defer></script><script src="/assets/site-navigation.js" defer></script>{page_scripts}
+<script src="{asset_url('/assets/legacy-navigation.js')}" defer></script><script src="{asset_url('/assets/site-navigation.js')}" defer></script>{page_scripts}
 </head><body class="page-{page_class}">{header(current)}{body}{footer()}</body></html>'''
 
 
