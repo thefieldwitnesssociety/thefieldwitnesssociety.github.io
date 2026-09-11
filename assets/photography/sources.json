@@ -1,0 +1,78 @@
+{
+  "note": "User-supplied photographs. Responsive copies preserve the complete image and original proportions. No generative edits, crops or colour changes.",
+  "photographs": [
+    {
+      "source": "DSCF1814(1).jpg",
+      "sha256": "dc3da2bdc796e02e00cde25d70ba0975f06331477631a7af272ef9d2b4ef54d8",
+      "dimensions": [
+        2048,
+        1365
+      ],
+      "files": [
+        "snow-ridge-960.webp",
+        "snow-ridge-1600.webp",
+        "snow-ridge-2048.webp"
+      ]
+    },
+    {
+      "source": "DSCF1809(1).jpg",
+      "sha256": "59e8c6e40149f7351c80c74ca25f794f7fb0708763b7feccd1c8aed3b19e5197",
+      "dimensions": [
+        1365,
+        2048
+      ],
+      "files": [
+        "snow-detail-640.webp",
+        "snow-detail-960.webp"
+      ]
+    },
+    {
+      "source": "DSCF1151.jpg",
+      "sha256": "495d173229fc175151bd7a6f26cb0f28a1a8b8ed74bd14f54137fb9d30740841",
+      "dimensions": [
+        1365,
+        2048
+      ],
+      "files": [
+        "desert-dunes-640.webp",
+        "desert-dunes-960.webp"
+      ]
+    },
+    {
+      "source": "DSCF2292.jpg",
+      "sha256": "0b02b9c72cc0e36f81d18d67145d163af6d927d89eba11f8b2b4cb4df8ddd8ed",
+      "dimensions": [
+        2048,
+        1365
+      ],
+      "files": [
+        "geothermal-landscape-960.webp",
+        "geothermal-landscape-1600.webp"
+      ]
+    },
+    {
+      "source": "IMG_9881.JPG",
+      "sha256": "9f284d39f6a52dfb629bccd4ead375af4603e06ea68e515888f9f4fcf00bcebb",
+      "dimensions": [
+        1365,
+        2048
+      ],
+      "files": [
+        "volcanic-lava-640.webp",
+        "volcanic-lava-960.webp"
+      ]
+    },
+    {
+      "source": "DSCF1858.jpg",
+      "sha256": "ce3f8e65d3063ba955d9ef2d3869a73fb7ce453003bb1de1ba292d721b5b0fcb",
+      "dimensions": [
+        1365,
+        2048
+      ],
+      "files": [
+        "salt-flat-640.webp",
+        "salt-flat-960.webp"
+      ]
+    }
+  ]
+}
