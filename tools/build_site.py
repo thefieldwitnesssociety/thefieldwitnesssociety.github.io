@@ -6,6 +6,7 @@ from hashlib import sha256
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'https://fieldwitnesssociety.com'
 ARTICLE = '/field-notes/the-iron-ore-railway/'
+ARTICLE_002 = '/field-notes/erta-ale/'
 PDF = '/downloads/The_Field_Witness_Society_Field_Note_001_Mauritania.pdf'
 DESCRIPTOR = 'An International Society for Geography, Exploration and Documentary Practice.'
 NAVIGATION = [('/', 'Home', 'home'), ('/field-notes/', 'Field Notes', 'notes'), ('/about/', 'About', 'about'), ('/contacts/', 'Contacts', 'contacts')]
@@ -43,7 +44,7 @@ def document(title, description, route, body, current='', noindex=False, author=
     if author:
         meta += f'<meta name="author" content="{escape(author)}">'
     page_scripts = ''.join(f'<script src="{escape(asset_url(src), quote=True)}" defer></script>' for src in scripts)
-    page_class = 'article' if route == ARTICLE else current or ('privacy' if route == '/privacy/' else 'utility')
+    page_class = 'article' if route in (ARTICLE, ARTICLE_002) else current or ('privacy' if route == '/privacy/' else 'utility')
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
@@ -79,6 +80,16 @@ def home():
 def field_notes():
     return f'''<main id="main" class="shell">
     <header class="page-heading notes-heading"><h1>Field Notes</h1><p class="standfirst">Photography and writing from the field.</p></header>
+    <article class="feature" aria-labelledby="feature-002-title">
+      <div class="feature-copy"><p class="eyebrow">Field Note 002 · Afar, Ethiopia</p>
+      <h2 id="feature-002-title"><a href="{ARTICLE_002}">Erta Ale Volcano</a></h2>
+      <p class="feature-deck">A night observation at the summit.</p>
+      <p class="feature-meta">23 April 2025</p>
+      {link(ARTICLE_002, 'Read the Field Note')}</div>
+      <figure class="feature-photo"><a href="{ARTICLE_002}" aria-label="Read Erta Ale Volcano">
+      <img src="/assets/field-note-002/figure-01-1600.webp" srcset="/assets/field-note-002/figure-01-960.webp 960w, /assets/field-note-002/figure-01-1600.webp 1600w, /assets/field-note-002/figure-01.jpg 2048w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:860px) 91vw, (min-width:1875px) 924px, 50vw" width="2048" height="1365" alt="Active lava illuminating the summit crater of Erta Ale after dark." fetchpriority="high"></a>
+      <figcaption><span>Afar, Ethiopia</span><span>Photography, video and field notes</span></figcaption></figure>
+    </article>
     <article class="feature" aria-labelledby="feature-title">
       <div class="feature-copy"><p class="eyebrow">Field Note 001 · Mauritania</p>
       <h2 id="feature-title"><a href="{ARTICLE}">The iron ore railway</a></h2>
@@ -86,7 +97,7 @@ def field_notes():
       <p class="feature-meta">9–10 October 2025</p>
       {link(ARTICLE, 'Read the Field Note')}</div>
       <figure class="feature-photo"><a href="{ARTICLE}" aria-label="Read The iron ore railway">
-      <img src="/assets/field-note-001/figure-01-1600.webp" srcset="/assets/field-note-001/figure-01-960.webp 960w, /assets/field-note-001/figure-01-1600.webp 1600w, /assets/field-note-001/figure-01.jpg 2048w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:860px) 91vw, (min-width:1875px) 924px, 50vw" width="2048" height="1365" alt="Iron-ore wagons extending across the desert in northern Mauritania." fetchpriority="high"></a>
+      <img src="/assets/field-note-001/figure-01-1600.webp" srcset="/assets/field-note-001/figure-01-960.webp 960w, /assets/field-note-001/figure-01-1600.webp 1600w, /assets/field-note-001/figure-01.jpg 2048w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:860px) 91vw, (min-width:1875px) 924px, 50vw" width="2048" height="1365" alt="Iron-ore wagons extending across the desert in northern Mauritania." loading="lazy" decoding="async"></a>
       <figcaption><span>Northern Mauritania</span><span>Photography and field notes</span></figcaption></figure>
     </article>
     </main>'''
@@ -107,13 +118,16 @@ def build():
     (ROOT/'privacy/index.html').write_text(document('Privacy · The Field Witness Society','How The Field Witness Society handles personal data, email enquiries and website visits.','/privacy/',privacy,noindex=True),encoding='utf-8')
     article = (ROOT/'content/field-note-001.html').read_text(encoding='utf-8')
     (ROOT/'field-notes/the-iron-ore-railway/index.html').write_text(document('The iron ore railway · Field Note 001 · The Field Witness Society','A westbound passage from Choum to Nouadhibou, Mauritania. Photography and field notes by Tommaso Bruno, 9–10 October 2025.',ARTICLE,article,current='notes',author='Tommaso Bruno'),encoding='utf-8')
+    article_002 = (ROOT/'content/field-note-002.html').read_text(encoding='utf-8')
+    (ROOT/'field-notes/erta-ale').mkdir(parents=True,exist_ok=True)
+    (ROOT/'field-notes/erta-ale/index.html').write_text(document('Erta Ale Volcano · Field Note 002 · The Field Witness Society','A night observation at the summit of Erta Ale in Afar, Ethiopia. Photography, video and field notes by Tommaso Bruno, 23 April 2025.',ARTICLE_002,article_002,current='notes',author='Tommaso Bruno'),encoding='utf-8')
     error = f'<main id="main" class="shell error-page"><p class="eyebrow">Page not found</p><h1>This page is unavailable.</h1><p>You can return to the Society or read our latest Field Note.</p>{link("/", "Return to the homepage")}</main>'
     (ROOT/'404.html').write_text(document('Page not found · The Field Witness Society','Return to the publications of The Field Witness Society.','/404.html',error,noindex=True),encoding='utf-8')
     thanks = f'<main id="main" class="shell message-page"><p class="eyebrow">Contact</p><h1>Write to the Society.</h1><p>Messages are sent from your email app. This page does not confirm delivery.</p>{link("/contacts/", "Go to Contacts")}</main>'
     (ROOT/'contact/thank-you').mkdir(parents=True,exist_ok=True)
     (ROOT/'contact/thank-you/index.html').write_text(document('Email contact · The Field Witness Society','Contact The Field Witness Society by email.','/contact/thank-you/',thanks,current='contacts',noindex=True),encoding='utf-8')
     (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /content/\nSitemap: {ORIGIN}/sitemap.xml\n',encoding='utf-8')
-    entries=''.join(f'<url><loc>{ORIGIN}{p}</loc></url>' for p in ['/', '/field-notes/', '/about/', '/contacts/', ARTICLE])
+    entries=''.join(f'<url><loc>{ORIGIN}{p}</loc></url>' for p in ['/', '/field-notes/', '/about/', '/contacts/', ARTICLE, ARTICLE_002])
     (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+entries+'</urlset>',encoding='utf-8')
 
 
