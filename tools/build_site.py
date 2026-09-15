@@ -78,29 +78,37 @@ def home():
 
 
 def field_notes():
-    return f'''<main id="main" class="shell">
-    <header class="page-heading notes-heading"><h1>Field Notes</h1><p class="standfirst">Photography and writing from the field.</p></header>
-    <article class="feature" aria-labelledby="feature-002-title">
-      <div class="feature-copy"><p class="eyebrow">Field Note 002 · Afar, Ethiopia</p>
-      <h2 id="feature-002-title"><a href="{ARTICLE_002}">Erta Ale Volcano</a></h2>
-      <p class="feature-deck">A night observation at the summit.</p>
-      <p class="feature-meta">23 April 2025</p>
-      {link(ARTICLE_002, 'Read the Field Note')}</div>
-      <figure class="feature-photo"><a href="{ARTICLE_002}" aria-label="Read Erta Ale Volcano">
-      <img src="/assets/field-note-002/figure-01-1600.webp" srcset="/assets/field-note-002/figure-01-960.webp 960w, /assets/field-note-002/figure-01-1600.webp 1600w, /assets/field-note-002/figure-01.jpg 2048w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:860px) 91vw, (min-width:1875px) 924px, 50vw" width="2048" height="1365" alt="Active lava illuminating the summit crater of Erta Ale after dark." fetchpriority="high"></a>
-      <figcaption><span>Afar, Ethiopia</span><span>Photography, video and field notes</span></figcaption></figure>
-    </article>
-    <article class="feature" aria-labelledby="feature-title">
-      <div class="feature-copy"><p class="eyebrow">Field Note 001 · Mauritania</p>
-      <h2 id="feature-title"><a href="{ARTICLE}">The iron ore railway</a></h2>
-      <p class="feature-deck">A westbound passage from Choum to Nouadhibou.</p>
-      <p class="feature-meta">9–10 October 2025</p>
-      {link(ARTICLE, 'Read the Field Note')}</div>
-      <figure class="feature-photo"><a href="{ARTICLE}" aria-label="Read The iron ore railway">
-      <img src="/assets/field-note-001/figure-01-1600.webp" srcset="/assets/field-note-001/figure-01-960.webp 960w, /assets/field-note-001/figure-01-1600.webp 1600w, /assets/field-note-001/figure-01.jpg 2048w" sizes="(max-width:640px) calc(100vw - 40px), (max-width:860px) 91vw, (min-width:1875px) 924px, 50vw" width="2048" height="1365" alt="Iron-ore wagons extending across the desert in northern Mauritania." loading="lazy" decoding="async"></a>
-      <figcaption><span>Northern Mauritania</span><span>Photography and field notes</span></figcaption></figure>
-    </article>
-    </main>'''
+    notes = [
+        ('002', ARTICLE_002, 'Erta Ale Volcano', 'Afar, Ethiopia',
+         'A night observation at the summit.', '23 April 2025',
+         'Photography, video and field notes',
+         'Active lava illuminating the summit crater of Erta Ale after dark.'),
+        ('001', ARTICLE, 'The iron ore railway', 'Mauritania',
+         'A westbound passage from Choum to Nouadhibou.', '9–10 October 2025',
+         'Photography and field notes',
+         'Iron-ore wagons extending across the desert in northern Mauritania.'),
+    ]
+    cards = []
+    for index, (number, url, title, place, deck, date, media, alt) in enumerate(notes):
+        image = f'/assets/field-note-{number}/figure-01'
+        loading = 'fetchpriority="high"' if index == 0 else 'loading="lazy" decoding="async"'
+        cards.append(f'''<article class="field-note-card" aria-labelledby="note-{number}-title">
+          <a class="postcard" href="{url}" aria-labelledby="note-{number}-title" aria-describedby="note-{number}-deck">
+            <figure class="postcard-photo">
+              <img src="{image}-960.webp" srcset="{image}-960.webp 960w, {image}-1600.webp 1600w" sizes="(max-width:640px) calc(100vw - 78px), (max-width:860px) calc(91vw - 58px), (min-width:1875px) 830px, 45vw" width="2048" height="1365" alt="{escape(alt)}" {loading}>
+            </figure>
+            <div class="postcard-copy">
+              <p class="eyebrow">Field Note {number} · {escape(place)}</p>
+              <h2 id="note-{number}-title">{escape(title)}</h2>
+              <p class="postcard-deck" id="note-{number}-deck">{escape(deck)}</p>
+              <p class="postcard-meta"><span>{escape(date)}</span><span>{escape(media)}</span></p>
+              <span class="postcard-open">Read the Field Note <span class="arrow" aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </article>''')
+    return '''<main id="main" class="shell">
+      <header class="page-heading notes-heading"><h1>Field Notes</h1><p class="standfirst">Photography and writing from the field.</p></header>
+      <div class="field-notes-list">''' + ''.join(cards) + '</div></main>'
 
 
 def build():
