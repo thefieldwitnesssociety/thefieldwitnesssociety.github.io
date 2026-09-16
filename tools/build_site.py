@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'https://fieldwitnesssociety.com'
 ARTICLE = '/field-notes/the-iron-ore-railway/'
 ARTICLE_002 = '/field-notes/erta-ale/'
+ARTICLE_003 = '/field-notes/cotopaxi/'
 PDF = '/downloads/The_Field_Witness_Society_Field_Note_001_Mauritania.pdf'
 DESCRIPTOR = 'An International Society for Geography, Exploration and Documentary Practice.'
 NAVIGATION = [('/', 'Home', 'home'), ('/field-notes/', 'Field Notes', 'notes'), ('/about/', 'About', 'about'), ('/contacts/', 'Contacts', 'contacts')]
@@ -44,7 +45,7 @@ def document(title, description, route, body, current='', noindex=False, author=
     if author:
         meta += f'<meta name="author" content="{escape(author)}">'
     page_scripts = ''.join(f'<script src="{escape(asset_url(src), quote=True)}" defer></script>' for src in scripts)
-    page_class = 'article' if route in (ARTICLE, ARTICLE_002) else current or ('privacy' if route == '/privacy/' else 'utility')
+    page_class = 'article' if route in (ARTICLE, ARTICLE_002, ARTICLE_003) else current or ('privacy' if route == '/privacy/' else 'utility')
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
@@ -79,23 +80,27 @@ def home():
 
 def field_notes():
     notes = [
+        ('003', ARTICLE_003, 'Cotopaxi', 'Ecuador',
+         'The giant of ice and fire.', '31 December 2024 – 1 January 2025',
+         'Photography and writing',
+         'Three climbers on a snow ridge above the cloud on Cotopaxi.', 2048, 1638),
         ('002', ARTICLE_002, 'Erta Ale Volcano', 'Afar, Ethiopia',
          'A night observation at the summit.', '23 April 2025',
          'Photography, video and field notes',
-         'Active lava illuminating the summit crater of Erta Ale after dark.'),
+         'Active lava illuminating the summit crater of Erta Ale after dark.', 2048, 1365),
         ('001', ARTICLE, 'The iron ore railway', 'Mauritania',
          'A westbound passage from Choum to Nouadhibou.', '9–10 October 2025',
          'Photography and field notes',
-         'Iron-ore wagons extending across the desert in northern Mauritania.'),
+         'Iron-ore wagons extending across the desert in northern Mauritania.', 2048, 1365),
     ]
     cards = []
-    for index, (number, url, title, place, deck, date, media, alt) in enumerate(notes):
+    for index, (number, url, title, place, deck, date, media, alt, width, height) in enumerate(notes):
         image = f'/assets/field-note-{number}/figure-01'
         loading = 'fetchpriority="high"' if index == 0 else 'loading="lazy" decoding="async"'
         cards.append(f'''<article class="field-note-card" aria-labelledby="note-{number}-title">
           <a class="postcard" href="{url}" aria-labelledby="note-{number}-title" aria-describedby="note-{number}-deck">
             <figure class="postcard-photo">
-              <img src="{image}-960.webp" srcset="{image}-960.webp 960w, {image}-1600.webp 1600w" sizes="(max-width:640px) calc(100vw - 78px), (max-width:860px) calc(91vw - 58px), (min-width:1875px) 830px, 45vw" width="2048" height="1365" alt="{escape(alt)}" {loading}>
+              <img src="{image}-960.webp" srcset="{image}-960.webp 960w, {image}-1600.webp 1600w" sizes="(max-width:640px) calc(100vw - 78px), (max-width:860px) calc(91vw - 58px), (min-width:1875px) 830px, 45vw" width="{width}" height="{height}" alt="{escape(alt)}" {loading}>
             </figure>
             <div class="postcard-copy">
               <p class="eyebrow">Field Note {number} · {escape(place)}</p>
@@ -129,13 +134,16 @@ def build():
     article_002 = (ROOT/'content/field-note-002.html').read_text(encoding='utf-8')
     (ROOT/'field-notes/erta-ale').mkdir(parents=True,exist_ok=True)
     (ROOT/'field-notes/erta-ale/index.html').write_text(document('Erta Ale Volcano · Field Note 002 · The Field Witness Society','A night observation at the summit of Erta Ale in Afar, Ethiopia. Photography, video and field notes by Tommaso Bruno, 23 April 2025.',ARTICLE_002,article_002,current='notes',author='Tommaso Bruno'),encoding='utf-8')
+    article_003 = (ROOT/'content/field-note-003.html').read_text(encoding='utf-8')
+    (ROOT/'field-notes/cotopaxi').mkdir(parents=True,exist_ok=True)
+    (ROOT/'field-notes/cotopaxi/index.html').write_text(document('Cotopaxi · Field Note 003 · The Field Witness Society','The giant of ice and fire. An expedition on Cotopaxi, Ecuador, with Tommaso Bruno, Umberto Pernice and Marco Aza, 31 December 2024 and 1 January 2025.',ARTICLE_003,article_003,current='notes',author='The Field Witness Society'),encoding='utf-8')
     error = f'<main id="main" class="shell error-page"><p class="eyebrow">Page not found</p><h1>This page is unavailable.</h1><p>You can return to the Society or read our latest Field Note.</p>{link("/", "Return to the homepage")}</main>'
     (ROOT/'404.html').write_text(document('Page not found · The Field Witness Society','Return to the publications of The Field Witness Society.','/404.html',error,noindex=True),encoding='utf-8')
     thanks = f'<main id="main" class="shell message-page"><p class="eyebrow">Contact</p><h1>Write to the Society.</h1><p>Messages are sent from your email app. This page does not confirm delivery.</p>{link("/contacts/", "Go to Contacts")}</main>'
     (ROOT/'contact/thank-you').mkdir(parents=True,exist_ok=True)
     (ROOT/'contact/thank-you/index.html').write_text(document('Email contact · The Field Witness Society','Contact The Field Witness Society by email.','/contact/thank-you/',thanks,current='contacts',noindex=True),encoding='utf-8')
     (ROOT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /tools/\nDisallow: /content/\nSitemap: {ORIGIN}/sitemap.xml\n',encoding='utf-8')
-    entries=''.join(f'<url><loc>{ORIGIN}{p}</loc></url>' for p in ['/', '/field-notes/', '/about/', '/contacts/', ARTICLE, ARTICLE_002])
+    entries=''.join(f'<url><loc>{ORIGIN}{p}</loc></url>' for p in ['/', '/field-notes/', '/about/', '/contacts/', ARTICLE, ARTICLE_002, ARTICLE_003])
     (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+entries+'</urlset>',encoding='utf-8')
 
 

@@ -10,6 +10,8 @@ The header uses the supplied horizontal logo, unchanged, at `assets/brand/fws-ho
 
 The main navigation has four pages: `/` (Home), `/field-notes/`, `/about/` and `/contacts/`. Published Field Notes retain their existing article URLs. Legacy section links redirect to the corresponding page. `/privacy/` is linked from the footer and contact form, outside the four-section main navigation; it requests no indexing but remains publicly accessible when deployed.
 
+Field Note 003, “Cotopaxi — The giant of ice and fire”, is at `/field-notes/cotopaxi/`. Its source is `content/field-note-003.html`, with ten supplied photographs and the locator map from the six-page PDF. The PDF is served directly from `downloads/The_Field_Witness_Society_Field_Note_003_Cotopaxi.pdf`. The index lists the notes in descending issue order, using each cover photograph's original proportions.
+
 ## Privacy update authorised on 11 September 2026
 
 The owner confirmed that FWS is a personal project and authorised publication of the privacy notice and email-app contact flow. This implementation is not a certification of compliance with every applicable law.
